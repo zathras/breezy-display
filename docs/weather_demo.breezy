@@ -1,0 +1,1052 @@
+next-url:weather_demo.data
+read-config
+{
+  "type": "BreezyConfiguration",
+  "version": 2,
+  "name": "weather_demo",
+  "feed": {
+    "comment": [
+      "Our data feed, consisting of five real values, plus a format",
+      "name, format version, time value, and checksum.",
+      "",
+      "Since checksumIsOptional is set, a checksum value of -1 is.",
+      "accepted.  It's a good idea to use a real checksum over an",
+      "unreliable link, like a serial port.",
+      "",
+      "timeModulus lets you have timevalues in the feed that",
+      "wrap; for example, a value of 65536 would be appropriate if",
+      "you count time on your device in a 16 bit unsigned int",
+      "The app uses 64 bit ints internally.",
+      "",
+      "if screenSwitchCommand is true, your feed must have an extra",
+      "field before the checksum that gives the name of the screen",
+      "you want shown at that time.  This allows the device being",
+      "watched to cycle through different screens automatically."
+    ],
+    "type": "DataFeed",
+    "protocolName": "weather_demo",
+    "protocolVersion": 1,
+    "timeModulus": null,
+    "ticksPerSecond": 10.0,
+    "values": [
+      {
+        "comment": [
+          "The first data element in the feed (feedIndex 0).  This is",
+          "a box that displays the city name.  The format string determines",
+          "the amount of space that's reserved - make it longer and the font",
+          "size will go down."
+        ],
+        "type": "Value",
+        "demoMinValue": 0.0,
+        "demoMaxValue": 0.0,
+        "displayers": [
+          {
+            "type": "ValueBox",
+            "id": "cityName",
+            "label": "City",
+            "labelHeightFactor": 0.2,
+            "units": null,
+            "format": "MMMMMMMMMMMMMMM",
+            "alignment": "center",
+            "color": "ffffebcd",
+            "prefix": null,
+            "postfix": null
+          }
+        ]
+      },
+      {
+        "comment": [
+          "Our data feed has a date field, but we don't display it."
+        ],
+        "type": "Value",
+        "demoMinValue": 0.0,
+        "demoMaxValue": 0.0,
+        "displayers": []
+      },
+      {
+        "comment": [
+          "Rainfall, shown both as a value and as a chart.",
+          "Because keepOriginalFormat is false, the number from the",
+          "feed is converted to a double then re-formatted according",
+          "to the format string."
+        ],
+        "type": "FormattedValue",
+        "format": "#0.0",
+        "keepOriginalFormat": false,
+        "demoMinValue": 0.0,
+        "demoMaxValue": 20.0,
+        "displayers": [
+          {
+            "comment": [
+              "This is a chart for displaying rainfall.  It's \"rolling\",",
+              "which means the values remain stationary, and the point",
+              "new values is added sweeps from right to left.  timeSpan",
+              "is in seconds.  Each day is one \"tick,\" converted to seconds",
+              "by ticksPerSecond."
+            ],
+            "type": "TimeChart",
+            "id": "rainfall_rolling",
+            "rolling": true,
+            "minValue": 0.0,
+            "maxValue": 10.0,
+            "timeSpan": 36.5,
+            "displayedTimeTicks": 13,
+            "color": "ff00ffff",
+            "label": "Rainfall inches",
+            "labelHeightFactor": 0.12
+          },
+          {
+            "comment": [
+              "This is like rainfall_rolling, but it's a \"sliding\" chart.",
+              "That means that old vales slide off the left side of the chart."
+            ],
+            "type": "TimeChart",
+            "id": "rainfall_sliding",
+            "rolling": false,
+            "minValue": 0.0,
+            "maxValue": 10.0,
+            "timeSpan": 36.5,
+            "displayedTimeTicks": 13,
+            "color": "ff00ffff",
+            "label": "Rainfall inches",
+            "labelHeightFactor": 0.12
+          },
+          {
+            "comment": [
+              "The same value is also displayed numerically, aligned on the",
+              "decimal point.  Format is big enough for NaN to display.",
+              "This format string is just used to calculate the width, and",
+              "figure out where the decimal point is."
+            ],
+            "type": "ValueBox",
+            "id": "rainfall_value",
+            "label": "Rainfall",
+            "labelHeightFactor": 0.12,
+            "units": "inches",
+            "format": "###.0",
+            "alignment": "decimal",
+            "color": "ff00ffff",
+            "prefix": null,
+            "postfix": null
+          }
+        ]
+      },
+      {
+        "comment": [
+          "Daily high temperature, shown both as a value and as a chart.",
+          "This is structurally similar to rainfall; see",
+          "the comments there"
+        ],
+        "type": "FormattedValue",
+        "format": "###",
+        "keepOriginalFormat": false,
+        "demoMinValue": -99.0,
+        "demoMaxValue": 140.0,
+        "displayers": [
+          {
+            "type": "TimeChart",
+            "id": "high_rolling",
+            "rolling": true,
+            "minValue": 30.0,
+            "maxValue": 100.0,
+            "timeSpan": 36.5,
+            "displayedTimeTicks": 13,
+            "color": "ffff0000",
+            "label": "High °F ",
+            "labelHeightFactor": 0.12
+          },
+          {
+            "type": "TimeChart",
+            "id": "high_sliding",
+            "rolling": false,
+            "minValue": 30.0,
+            "maxValue": 100.0,
+            "timeSpan": 36.5,
+            "displayedTimeTicks": 13,
+            "color": "ffff0000",
+            "label": "High °F ",
+            "labelHeightFactor": 0.12
+          },
+          {
+            "type": "ValueBox",
+            "id": "high_value",
+            "label": "High",
+            "labelHeightFactor": 0.12,
+            "units": null,
+            "format": "1##",
+            "alignment": "decimal",
+            "color": "ffff0000",
+            "prefix": null,
+            "postfix": "° F"
+          },
+          {
+            "comment": [
+              "This chart has a time span of about 20 years' worth of",
+              "data.  With data points this dense, a sliding chart is",
+              "pretty slow, so we have a rolling chart here."
+            ],
+            "type": "TimeChart",
+            "id": "high_long",
+            "rolling": true,
+            "minValue": 30.0,
+            "maxValue": 100.0,
+            "timeSpan": 730.0,
+            "displayedTimeTicks": 20,
+            "color": "ffff0000",
+            "label": "High °F ",
+            "labelHeightFactor": 0.12
+          }
+        ]
+      },
+      {
+        "comment": [
+          "Daily low temperature, shown both as a value and as a chart.",
+          "Structurally this is very similar to rainfall; see",
+          "the comments there"
+        ],
+        "type": "FormattedValue",
+        "format": "###",
+        "keepOriginalFormat": false,
+        "demoMinValue": -99.0,
+        "demoMaxValue": 140.0,
+        "displayers": [
+          {
+            "type": "TimeChart",
+            "id": "low_rolling",
+            "rolling": true,
+            "minValue": 30.0,
+            "maxValue": 100.0,
+            "timeSpan": 36.5,
+            "displayedTimeTicks": 13,
+            "color": "ff6666ff",
+            "label": "Low °F ",
+            "labelHeightFactor": 0.12
+          },
+          {
+            "type": "TimeChart",
+            "id": "low_sliding",
+            "rolling": false,
+            "minValue": 30.0,
+            "maxValue": 100.0,
+            "timeSpan": 36.5,
+            "displayedTimeTicks": 13,
+            "color": "ff6666ff",
+            "label": "Low °F ",
+            "labelHeightFactor": 0.12
+          },
+          {
+            "type": "ValueBox",
+            "id": "low_value",
+            "label": "Low",
+            "labelHeightFactor": 0.12,
+            "units": null,
+            "format": "1##",
+            "alignment": "decimal",
+            "color": "ff6666ff",
+            "prefix": null,
+            "postfix": "° F"
+          }
+        ]
+      }
+    ],
+    "screenSwitchCommand": false,
+    "checksumIsOptional": true
+  },
+  "screens": [
+    {
+      "comment": [
+        "This is a screen definition.  There can be multiple screen",
+        "layouts, and the app can switch between the screens.",
+        "Switching canb be done with a ScreenSwitchArrow widget,",
+        "as is the case here, or the device can indicate which is",
+        "the current screen with each data sample."
+      ],
+      "type": "Screen",
+      "name": "sliding",
+      "portrait": {
+        "type": "ScreenColumn",
+        "content": [
+          {
+            "type": "ScreenRow",
+            "content": [
+              {
+                "type": "Spacer",
+                "flex": 1
+              },
+              {
+                "type": "Label",
+                "text": "Weather - Sliding",
+                "color": "fff5f5f5",
+                "flex": 4
+              },
+              {
+                "type": "Spacer",
+                "flex": 2
+              },
+              {
+                "type": "ScreenSwitchArrow",
+                "flex": 1,
+                "color": "ffe6e6e6"
+              }
+            ],
+            "flex": 1
+          },
+          {
+            "type": "Border",
+            "width": 1.0,
+            "color": "ff606060",
+            "flex": null
+          },
+          {
+            "type": "ScreenRow",
+            "content": [
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              },
+              {
+                "type": "DataWidget",
+                "dataID": "cityName",
+                "flex": 1
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              }
+            ],
+            "flex": 1
+          },
+          {
+            "type": "Border",
+            "width": 1.0,
+            "color": "ff606060",
+            "flex": null
+          },
+          {
+            "type": "ScreenRow",
+            "content": [
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              },
+              {
+                "type": "DataWidget",
+                "dataID": "high_sliding",
+                "flex": 5
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              },
+              {
+                "type": "DataWidget",
+                "dataID": "high_value",
+                "flex": 2
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              }
+            ],
+            "flex": 2
+          },
+          {
+            "type": "Border",
+            "width": 1.0,
+            "color": "ff606060",
+            "flex": null
+          },
+          {
+            "type": "ScreenRow",
+            "content": [
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              },
+              {
+                "type": "DataWidget",
+                "dataID": "low_sliding",
+                "flex": 5
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              },
+              {
+                "type": "DataWidget",
+                "dataID": "low_value",
+                "flex": 2
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              }
+            ],
+            "flex": 2
+          },
+          {
+            "type": "Border",
+            "width": 1.0,
+            "color": "ff606060",
+            "flex": null
+          },
+          {
+            "type": "ScreenRow",
+            "content": [
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              },
+              {
+                "type": "DataWidget",
+                "dataID": "rainfall_sliding",
+                "flex": 5
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              },
+              {
+                "type": "DataWidget",
+                "dataID": "rainfall_value",
+                "flex": 2
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              }
+            ],
+            "flex": 2
+          },
+          {
+            "type": "Border",
+            "width": 1.0,
+            "color": "ff606060",
+            "flex": null
+          }
+        ],
+        "flex": 1
+      },
+      "landscape": {
+        "type": "ScreenColumn",
+        "content": [
+          {
+            "type": "ScreenRow",
+            "content": [
+              {
+                "type": "Spacer",
+                "flex": 1
+              },
+              {
+                "type": "Label",
+                "text": "Weather - Sliding",
+                "color": "fff5f5f5",
+                "flex": 6
+              },
+              {
+                "type": "Spacer",
+                "flex": 1
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              },
+              {
+                "type": "ScreenColumn",
+                "content": [
+                  {
+                    "type": "Border",
+                    "width": 1.0,
+                    "color": "ff606060",
+                    "flex": null
+                  },
+                  {
+                    "type": "DataWidget",
+                    "dataID": "cityName",
+                    "flex": 8
+                  }
+                ],
+                "flex": 8
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              },
+              {
+                "type": "ScreenSwitchArrow",
+                "flex": 2,
+                "color": "ffe6e6e6"
+              }
+            ],
+            "flex": 1
+          },
+          {
+            "type": "Border",
+            "width": 1.0,
+            "color": "ff606060",
+            "flex": null
+          },
+          {
+            "type": "ScreenRow",
+            "content": [
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              },
+              {
+                "type": "DataWidget",
+                "dataID": "low_sliding",
+                "flex": 1
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              },
+              {
+                "type": "DataWidget",
+                "dataID": "high_sliding",
+                "flex": 1
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              }
+            ],
+            "flex": 2
+          },
+          {
+            "type": "Border",
+            "width": 1.0,
+            "color": "ff606060",
+            "flex": null
+          },
+          {
+            "type": "ScreenRow",
+            "content": [
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              },
+              {
+                "type": "DataWidget",
+                "dataID": "low_value",
+                "flex": 2
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              },
+              {
+                "type": "DataWidget",
+                "dataID": "rainfall_sliding",
+                "flex": 5
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              },
+              {
+                "type": "DataWidget",
+                "dataID": "rainfall_value",
+                "flex": 2
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              },
+              {
+                "type": "DataWidget",
+                "dataID": "high_value",
+                "flex": 2
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              }
+            ],
+            "flex": 2
+          },
+          {
+            "type": "Border",
+            "width": 1.0,
+            "color": "ff606060",
+            "flex": null
+          }
+        ],
+        "flex": 1
+      }
+    },
+    {
+      "comment": [
+        "This screen is like the one above, only the charts are rolling",
+        "instead of sliding."
+      ],
+      "type": "Screen",
+      "name": "rolling",
+      "portrait": {
+        "type": "ScreenColumn",
+        "content": [
+          {
+            "type": "ScreenRow",
+            "content": [
+              {
+                "type": "Spacer",
+                "flex": 1
+              },
+              {
+                "type": "Label",
+                "text": "Weather - Rolling",
+                "color": "fff5f5f5",
+                "flex": 4
+              },
+              {
+                "type": "Spacer",
+                "flex": 2
+              },
+              {
+                "type": "ScreenSwitchArrow",
+                "flex": 1,
+                "color": "ffe6e6e6"
+              }
+            ],
+            "flex": 1
+          },
+          {
+            "type": "Border",
+            "width": 1.0,
+            "color": "ff606060",
+            "flex": null
+          },
+          {
+            "type": "ScreenRow",
+            "content": [
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              },
+              {
+                "type": "DataWidget",
+                "dataID": "cityName",
+                "flex": 1
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              }
+            ],
+            "flex": 1
+          },
+          {
+            "type": "Border",
+            "width": 1.0,
+            "color": "ff606060",
+            "flex": null
+          },
+          {
+            "type": "ScreenRow",
+            "content": [
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              },
+              {
+                "type": "DataWidget",
+                "dataID": "high_rolling",
+                "flex": 5
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              },
+              {
+                "type": "DataWidget",
+                "dataID": "high_value",
+                "flex": 2
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              }
+            ],
+            "flex": 2
+          },
+          {
+            "type": "Border",
+            "width": 1.0,
+            "color": "ff606060",
+            "flex": null
+          },
+          {
+            "type": "ScreenRow",
+            "content": [
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              },
+              {
+                "type": "DataWidget",
+                "dataID": "low_rolling",
+                "flex": 5
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              },
+              {
+                "type": "DataWidget",
+                "dataID": "low_value",
+                "flex": 2
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              }
+            ],
+            "flex": 2
+          },
+          {
+            "type": "Border",
+            "width": 1.0,
+            "color": "ff606060",
+            "flex": null
+          },
+          {
+            "type": "ScreenRow",
+            "content": [
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              },
+              {
+                "type": "DataWidget",
+                "dataID": "rainfall_rolling",
+                "flex": 5
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              },
+              {
+                "type": "DataWidget",
+                "dataID": "rainfall_value",
+                "flex": 2
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              }
+            ],
+            "flex": 2
+          },
+          {
+            "type": "Border",
+            "width": 1.0,
+            "color": "ff606060",
+            "flex": null
+          }
+        ],
+        "flex": 1
+      },
+      "landscape": {
+        "type": "ScreenColumn",
+        "content": [
+          {
+            "type": "ScreenRow",
+            "content": [
+              {
+                "type": "Spacer",
+                "flex": 1
+              },
+              {
+                "type": "Label",
+                "text": "Weather - Rolling",
+                "color": "fff5f5f5",
+                "flex": 6
+              },
+              {
+                "type": "Spacer",
+                "flex": 1
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              },
+              {
+                "type": "ScreenColumn",
+                "content": [
+                  {
+                    "type": "Border",
+                    "width": 1.0,
+                    "color": "ff606060",
+                    "flex": null
+                  },
+                  {
+                    "type": "DataWidget",
+                    "dataID": "cityName",
+                    "flex": 8
+                  }
+                ],
+                "flex": 8
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              },
+              {
+                "type": "ScreenSwitchArrow",
+                "flex": 2,
+                "color": "ffe6e6e6"
+              }
+            ],
+            "flex": 1
+          },
+          {
+            "type": "Border",
+            "width": 1.0,
+            "color": "ff606060",
+            "flex": null
+          },
+          {
+            "type": "ScreenRow",
+            "content": [
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              },
+              {
+                "type": "DataWidget",
+                "dataID": "low_rolling",
+                "flex": 1
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              },
+              {
+                "type": "DataWidget",
+                "dataID": "high_rolling",
+                "flex": 1
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              }
+            ],
+            "flex": 2
+          },
+          {
+            "type": "Border",
+            "width": 1.0,
+            "color": "ff606060",
+            "flex": null
+          },
+          {
+            "type": "ScreenRow",
+            "content": [
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              },
+              {
+                "type": "DataWidget",
+                "dataID": "low_value",
+                "flex": 2
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              },
+              {
+                "type": "DataWidget",
+                "dataID": "rainfall_rolling",
+                "flex": 5
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              },
+              {
+                "type": "DataWidget",
+                "dataID": "rainfall_value",
+                "flex": 2
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              },
+              {
+                "type": "DataWidget",
+                "dataID": "high_value",
+                "flex": 2
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              }
+            ],
+            "flex": 2
+          },
+          {
+            "type": "Border",
+            "width": 1.0,
+            "color": "ff606060",
+            "flex": null
+          }
+        ],
+        "flex": 1
+      }
+    },
+    {
+      "comment": [
+        "This screen only has a definiton for one orientation.",
+        "It's used for both."
+      ],
+      "type": "Screen",
+      "name": "long",
+      "portrait": {
+        "type": "ScreenColumn",
+        "content": [
+          {
+            "type": "ScreenRow",
+            "content": [
+              {
+                "type": "Label",
+                "text": "High Temperature for about 20 years",
+                "color": "fff5f5f5",
+                "flex": 5
+              },
+              {
+                "type": "ScreenSwitchArrow",
+                "flex": 1,
+                "color": "ffe6e6e6"
+              }
+            ],
+            "flex": 1
+          },
+          {
+            "type": "Border",
+            "width": 1.0,
+            "color": "ff606060",
+            "flex": null
+          },
+          {
+            "type": "ScreenRow",
+            "content": [
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              },
+              {
+                "type": "DataWidget",
+                "dataID": "high_long",
+                "flex": 1
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff606060",
+                "flex": null
+              }
+            ],
+            "flex": 3
+          },
+          {
+            "type": "Border",
+            "width": 1.0,
+            "color": "ff606060",
+            "flex": null
+          }
+        ],
+        "flex": 1
+      },
+      "landscape": null
+    }
+  ],
+  "sampleLog": []
+}
