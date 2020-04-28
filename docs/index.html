@@ -1,25 +1,66 @@
 <html>
 <body>
 <h1>Breezy Display App</h1>
-<p>
+<p style="width: 95%; display: block; margin-left: auto; margin-right: auto">
 The Breezy Display App allows connection to an embedded
 controller, like an Arduino device.  The device sends a data feed to the app,
-which displays it as shown.
+which displays it.  The app can be configured for different screen layouts and
+different data feeds, with a straightforward JSON file.  It can read data
+from a USB serial connection, Bluetooth/RFCOMM, a socket connection to a URL,
+or a server socket opened on the display device.
 
-<h2>Sample Screen Shot</h2>
+<h2>Sample Screens</h2>
 <p>
+<a href="images/sample_screenshot.jpg">
 <img 
-    style="width: 90%; display: block; margin-left: auto; margin-right: auto" 
+    style="width: 85%; display: block; margin-left: auto; margin-right: auto" 
     src="images/sample_screenshot.jpg">
+</a>
 <p>
+<table
+    style="width: 85%; display: block; margin-left: auto; margin-right: auto" >
+<colgroup>
+  <col style="width: 34%">
+  <col style="width: 33%">
+  <col style="width: 33%">
+</colgroup>
+<tr>
+<td>
+<a href="images/new_config.png">
+<img
+    style="width: 100%; display: block; margin-left: auto; margin-right: auto" 
+    src="images/new_config.png">
+</a>
+<p style="width: 80%; display: block; margin-left: auto; margin-right: auto">
+The data feed can include a 
+<a href="https://github.com/zathras/breezy-display/blob/master/docs/weather_demo.breezy">
+screen configuration</a> to define a new
+feed structure and a new screens.
+</td><td>
+<a href="images/weather.png">
+<img
+    style="width: 100%; display: block; margin-left: auto; margin-right: auto" 
+    src="images/weather.png">
+</a>
+</td><td>
+<a href="images/weather2.png">
+<img
+    style="width: 100%; display: block; margin-left: auto; margin-right: auto" 
+    src="images/weather2.png">
+</a>
+</td></tr>
+</table>
+<p>&nbsp;</p>
+<h2>More Information...</h2>
+<p style="width: 95%; display: block; margin-left: auto; margin-right: auto">
 This app is being used in the <a href="https://app.jogl.io/project/151">Breezy Crisis Emergency Ventilator</a> project operated through the
 <a href="https://app.jogl.io/program/opencovid19">JOGL OpenCovid19
 Initiative</a>.  Source is available in the
 <a href="https://github.com/kukulo2011/OpenCovid_ventilator">project's
 GitHub repository</a> under
 <a href="https://github.com/kukulo2011/OpenCovid_ventilator/tree/master/display_app"><code>display_app</code></a>.
-<p>
-This app is offered under the
+<p style="width: 95%; display: block; margin-left: auto; margin-right: auto">
+Breezy-Display is offered under the
 <a href="https://github.com/kukulo2011/OpenCovid_ventilator/blob/master/display_app/LICENSE">MIT License</a>.  Please refer to that license for
 information about fitness for any particular purpose.
 The app itself is a generic tool for visualizing data, and is in no way 
@@ -27,5 +68,8 @@ seeks to "capitalize on a natural disaster, atrocity, conflict, death, or
 other tragic event."  Such applications are prohibited by the
 <a href="https://play.google.com/about/restricted-content/inappropriate-content/#!?zippy_activeEl=sensitive-events#sensitive-events">Google
 Play Sensitive Events Policy</a>.
+<p style="width: 95%; display: block; margin-left: auto; margin-right: auto">
+See the repository's 
+<a href="https://github.com/kukulo2011/OpenCovid_ventilator/blob/master/display_app/README.md">README</a> file for more information and documentation.
 </body>
 </html>
