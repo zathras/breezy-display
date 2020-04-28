@@ -1,0 +1,216 @@
+next-url:minimal_configuration.data
+read-config
+{
+  "comment": [
+    "This is fairly a minimal configuration.  It consists of a data",
+    "feed with one value that is displayed as a number, and as a",
+    "sliding graph."
+  ],
+  "type": "BreezyConfiguration",
+  "version": 2,
+  "name": "Tangent Demo",
+  "feed": {
+    "type": "DataFeed",
+    "protocolName": "tangent",
+    "protocolVersion": 1,
+    "timeModulus": null,
+    "ticksPerSecond": 500,
+    "values": [
+      {
+        "comment": [
+          "Our one value, the tangent.  The 'time' ticks are radians*1000,",
+          "since time is forced in the protocol to be an integer."
+        ],
+        "type": "FormattedValue",
+        "demoMinValue": -5.0,
+        "demoMaxValue": 5.0,
+        "keepOriginalFormat": false,
+        "format":"#0.00",
+        "displayers": [
+          {
+            "type": "TimeChart",
+            "id": "tan-chart",
+            "rolling": false,
+            "minValue": -5.0,
+            "maxValue": 5.0,
+            "timeSpan": 16.0,
+            "displayedTimeTicks": 9,
+            "color": "ffd2b48c",
+            "label": "Tangentially Speaking",
+            "labelHeightFactor": 0.06
+          },
+          {
+            "type": "ValueBox",
+            "id": "tan-value",
+            "label": "tan(θ)",
+            "labelHeightFactor": 0.3,
+            "units": null,
+            "format": "NaN.##",
+            "alignment": "decimal",
+            "color": "ffd2b48c",
+            "prefix": null,
+            "postfix": null
+          }
+        ]
+      }
+    ],
+    "screenSwitchCommand": false,
+    "checksumIsOptional": true
+  },
+  "screens": [
+    {
+      "type": "Screen",
+      "name": "n/a",
+      "portrait": {
+        "type": "ScreenColumn",
+        "flex": 1,
+        "content": [
+          {
+            "type": "Label",
+            "text": "Going off on a tangent...        ",
+            "color": "ff66ff66",
+            "flex": 1
+          },
+          {
+            "type": "Border",
+            "width": 1.0,
+            "color": "ff616161",
+            "flex": null
+          },
+          {
+            "type": "ScreenRow",
+            "flex": 5,
+            "content": [
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff616161",
+                "flex": null
+              },
+              {
+                "type": "DataWidget",
+                "dataID": "tan-chart",
+                "flex": 1
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff616161",
+                "flex": null
+              }
+            ]
+          },
+          {
+            "type": "Border",
+            "width": 1.0,
+            "color": "ff616161",
+            "flex": null
+          },
+          {
+            "type": "ScreenRow",
+            "flex": 1,
+            "content": [
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff616161",
+                "flex": null
+              },
+              {
+                "type": "DataWidget",
+                "dataID": "tan-value",
+                "flex": 3
+              },
+              {
+                "type": "Spacer",
+                "flex": 2
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff616161",
+                "flex": null
+              }
+            ]
+          },
+          {
+            "type": "Border",
+            "width": 1.0,
+            "color": "ff616161",
+            "flex": null
+          }
+        ]
+      },
+      "landscape": {
+        "type": "ScreenColumn",
+        "flex": 1,
+        "content": [
+          {
+            "type": "Label",
+            "text": "Going off on a tangent...        ",
+            "color": "ff66ff66",
+            "flex": 1
+          },
+          {
+            "type": "Border",
+            "width": 1.0,
+            "color": "ff616161",
+            "flex": null
+          },
+          {
+            "type": "ScreenRow",
+            "flex": 7,
+            "content": [
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff616161",
+                "flex": null
+              },
+              {
+                "type": "DataWidget",
+                "dataID": "tan-chart",
+                "flex": 5
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff616161",
+                "flex": null
+              },
+              {
+                "type": "ScreenColumn",
+                "flex": 1,
+                "content": [
+                  {
+                    "type": "DataWidget",
+                    "dataID": "tan-value",
+                    "flex": 1
+                  },
+                  {
+                    "type": "Spacer",
+                    "flex": 2
+                  }
+                ]
+              },
+              {
+                "type": "Border",
+                "width": 1.0,
+                "color": "ff616161",
+                "flex": null
+              }
+            ]
+          },
+          {
+            "type": "Border",
+            "width": 1.0,
+            "color": "ff616161",
+            "flex": null
+          }
+        ]
+      }
+    }
+  ],
+  "sampleLog": [
+  ]
+}

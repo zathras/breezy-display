@@ -1,4 +1,3 @@
-# Start with a newline before first command
 next-url:weather_demo.data
 meter-data:on
 weather_demo,1,1,CULVER CITY,2000-01-01,0.12,58,51,-1
