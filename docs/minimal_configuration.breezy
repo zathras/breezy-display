@@ -67,7 +67,7 @@ read-config
         "content": [
           {
             "type": "Label",
-            "text": "Going off on a tangent...        ",
+            "text": "  Going off on a tangent...        ",
             "color": "ff66ff66",
             "flex": 1
           },
@@ -147,7 +147,7 @@ read-config
         "content": [
           {
             "type": "Label",
-            "text": "Going off on a tangent...        ",
+            "text": "  Going off on a tangent...        ",
             "color": "ff66ff66",
             "flex": 1
           },
